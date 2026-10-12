@@ -61,3 +61,14 @@ test('V1.2 hero progression is separate and awarded only for eligible wins',()=>
  assert.match(battle,/if\(ended\)return;ended=true/);
  assert.match(battle,/eligible:!targetId\|\|conquered/);
 });
+
+test('V1.2 phase 3 skill tiers stay capped and only modify hero skills',()=>{
+ const hero=read('hero-progress-v12.js'),battle=read('battle.js');
+ assert.match(hero,/lv>=5\?1\.15:lv>=3\?1\.08:1/);
+ assert.match(hero,/heroLevel,skillBonus/);
+ assert.match(battle,/skillBonus\?\.\(HEROES\[i\]\.id\)/);
+ assert.match(battle,/doctrineConfig\(\)\.attack\*bonus/);
+ assert.match(battle,/doctrineConfig\(\)\.armor\*bonus/);
+ assert.match(battle,/doctrineConfig\(\)\.heal\*bonus/);
+ assert.match(read('battle.html'),/Cấp 3 mở kỹ năng tinh luyện/);
+});
