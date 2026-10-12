@@ -6,9 +6,9 @@ const layer=document.createElement('div');layer.className='battle-fx-layer';laye
 const hp=document.getElementById('etxt'),php=document.getElementById('ptxt'),shield=document.getElementById('shieldtxt');
 let lastEnemy=null,lastHero=null,lastShield=null,lastStatus='',lastResult=false;
 const number=s=>{const m=String(s||'').match(/\d+/);return m?Number(m[0]):null};
-const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function float(text,anchor,kind){if(reduced||!anchor)return;const rect=anchor.getBoundingClientRect();if(!rect.width)return;const el=document.createElement('span');el.className='battle-float '+kind;el.textContent=text;el.style.left=Math.max(10,Math.min(window.innerWidth-90,rect.left+rect.width/2))+'px';el.style.top=Math.max(20,rect.top+rect.height/2)+'px';layer.append(el);el.addEventListener('animationend',()=>el.remove(),{once:true});setTimeout(()=>el.remove(),1200)}
-function pulse(el,cls){if(reduced||!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);setTimeout(()=>el.classList.remove(cls),650)}
+const motion=window.matchMedia('(prefers-reduced-motion: reduce)');const reduced=()=>motion.matches;
+function float(text,anchor,kind){if(reduced()||!anchor)return;const rect=anchor.getBoundingClientRect();if(!rect.width)return;const el=document.createElement('span');el.className='battle-float '+kind;el.textContent=text;el.style.left=Math.max(10,Math.min(window.innerWidth-90,rect.left+rect.width/2))+'px';el.style.top=Math.max(20,rect.top+rect.height/2)+'px';layer.append(el);el.addEventListener('animationend',()=>el.remove(),{once:true});setTimeout(()=>el.remove(),1200)}
+function pulse(el,cls){if(reduced()||!el)return;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);setTimeout(()=>el.classList.remove(cls),650)}
 function check(){
 const enemy=number(hp?.textContent),hero=number(php?.textContent),guard=number(shield?.textContent);
 if(lastEnemy!==null&&enemy!==null&&enemy<lastEnemy){float('−'+(lastEnemy-enemy),document.querySelector('.fighter.enemy'),'damage');pulse(document.querySelector('.fighter.enemy'),'battle-hit')}
