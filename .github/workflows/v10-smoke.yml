@@ -1,0 +1,15 @@
+name: V1.0 Static QA
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run game smoke tests
+        run: node --test tests/smoke.test.cjs

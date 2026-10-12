@@ -1,0 +1,15 @@
+// Node.js built-in smoke tests for V1.0 static game.
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const files=['index.html','map.html','battle.html','quests.html','story.html'];
+const read=f=>fs.readFileSync(f,'utf8');
+test('all gameplay pages exist and link to local scripts',()=>{
+ for(const file of files){assert.ok(fs.existsSync(file),file);const html=read(file);assert.match(html,/<meta name="viewport"/);for(const m of html.matchAll(/<script\s+src="([^"]+)"/g)){assert.ok(fs.existsSync(m[1]),file+' missing '+m[1])}for(const m of html.matchAll(/<link\s+rel="stylesheet"\s+href="([^"]+)"/g)){assert.ok(fs.existsSync(m[1]),file+' missing '+m[1])}}
+});
+test('every JS file parses',()=>{for(const file of fs.readdirSync('.').filter(f=>f.endsWith('.js'))){assert.doesNotThrow(()=>new vm.Script(read(file),{filename:file}),file)}});
+test('city save key is shared by city, map, quests and battle',()=>{for(const file of ['index.html','map.js','quests.js','battle.js'])assert.ok(read(file).includes('loan12_hoalu_v03'),file)});
+test('campaign save key is shared by map, battle and quests',()=>{for(const file of ['map.js','battle.js','quests.js'])assert.ok(read(file).includes('loan12_campaign_v06'),file)});
+test('quest rewards have a single-record receipt and legacy compatibility',()=>{const code=read('quests.js');assert.match(code,/questRewardIds/);assert.match(code,/loan12_quest_claims_v08/);assert.match(code,/localStorage\.setItem\(CITY/);});
+test('campaign contains 13 unique regions and valid prerequisites',()=>{
+ const html=read('map.html'),m=html.match(/const REGIONS=(\[[\s\S]*?\]);<\/script>/);assert.ok(m,'region dataset');const regions=JSON.parse(m[1]);assert.equal(regions.length,13);const ids=new Set(regions.map(r=>r.id));assert.equal(ids.size,13);assert.ok(ids.has('hoalu'));for(const r of regions)for(const dep of r.requires)assert.ok(ids.has(dep),r.id+' invalid prerequisite '+dep);
+});
+test('quest definitions include mid and end milestones',()=>{const html=read('quests.html');assert.match(html,/COUNT7/);assert.match(html,/COUNT13/);});

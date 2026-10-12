@@ -15,7 +15,7 @@ const lv=Object.values(levels).filter(x=>Number.isFinite(x)).reduce((a,b)=>a+b,0
 const progress=Math.min(100,Math.round(owned.size/13*100));
 const root=$('v10-overview');root.replaceChildren();
 const stats=document.createElement('div');stats.className='v10-stats';
-for(const [name,value] of [['Lãnh thổ',owned.size+'/13'],['Nghĩa quân',fmt(Number(city?.army)||20)],['Cấp công trình',lv+'/12']]){
+for(const [name,value] of [['Lãnh thổ',owned.size+'/13'],['Nghĩa quân',fmt(city?.army==null?20:Number(city.army))],['Cấp công trình',lv+'/12']]){
  const item=document.createElement('div');const strong=document.createElement('strong');strong.textContent=value;const label=document.createElement('span');label.textContent=name;item.append(strong,label);stats.append(item);
 }
 const bar=document.createElement('div');bar.className='v10-progress';bar.setAttribute('role','progressbar');bar.setAttribute('aria-valuenow',String(progress));bar.setAttribute('aria-valuemin','0');bar.setAttribute('aria-valuemax','100');bar.setAttribute('aria-label','Tiến độ thống nhất');const fill=document.createElement('span');fill.style.width=progress+'%';bar.append(fill);
