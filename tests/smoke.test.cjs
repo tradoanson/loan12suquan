@@ -83,3 +83,14 @@ test('V1.2 achievements keep one-time rewards in the city receipt',()=>{
  assert.match(script,/localStorage\.setItem\(CITY,JSON\.stringify\(updated\)\)/);
  assert.match(script,/a8.*Tam kiệt Hoa Lư/);
 });
+
+test('V1.2 phase 5 strategic events require eligibility and single receipt',()=>{
+ const html=read('chronicle.html'),js=read('strategic-events-v12.js');
+ assert.match(html,/id="strategic-events-v12"/);
+ assert.match(html,/strategic-events-v12\.js/);
+ assert.match(js,/strategicEventChoices/);
+ assert.match(js,/ledger\(city\)\[id\]\|\|!event\.eligible\(city,owned\)/);
+ assert.match(js,/Object\.entries\(option\.cost\)\.some/);
+ assert.match(js,/localStorage\.setItem\(CITY,JSON\.stringify\(next\)\)/);
+ for(const id of ['council','border','unification'])assert.ok(js.includes("id:'"+id+"'"));
+});
