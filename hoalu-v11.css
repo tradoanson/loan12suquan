@@ -1,0 +1,22 @@
+/* Hoa Lu V1.1 visual polish: progressive enhancement only. */
+.city{isolation:isolate;background:linear-gradient(180deg,#9acdd6 0%,#cde7d8 28%,#8ebc7a 29%,#588a55 75%);transition:box-shadow .25s}
+.city::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 77% 12%,#fff7c685,transparent 22%),linear-gradient(125deg,transparent 35%,#fff7c012 50%,transparent 65%)}
+.city::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(90deg,transparent 0 79px,#ffffff06 80px 81px)}
+.city .mountains,.city .river,.city .ground,.city .wall{pointer-events:none}
+.city .buildings{z-index:3}
+.city .topline{z-index:5;backdrop-filter:blur(4px)}
+.city .tree,.city .banner{z-index:2}
+.city .banner{transform-origin:50% 0;animation:hoaLuBanner 4.5s ease-in-out infinite alternate}
+.city .banner:nth-of-type(4){animation-delay:-2s}
+.building{z-index:1;outline-offset:3px;touch-action:manipulation}
+.building:focus-visible{outline:3px solid #fff3b5;border-radius:14px}
+.building.active{z-index:4}
+.building.active span{background:#68431c;color:#fff5d3;box-shadow:0 0 0 2px #ffe09c66}
+.building span{box-shadow:0 3px 8px #0d221b80}
+.building[data-level="2"] img{filter:drop-shadow(0 0 5px #f9cf6b60)}
+.building[data-level="3"] img{filter:drop-shadow(0 0 9px #ffe5a8a0)}
+.city-hint{position:absolute;left:50%;bottom:13%;transform:translateX(-50%);z-index:4;background:#102f36d9;border:1px solid #e8bc6e;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;pointer-events:none;white-space:nowrap;max-width:90%;text-overflow:ellipsis;overflow:hidden}
+.city-scene-info{margin:8px 0 0;color:#d8e7d3;font-size:12px}
+@keyframes hoaLuBanner{from{transform:rotate(-2deg)}to{transform:rotate(3deg)}}
+@media(max-width:560px){.city{min-height:490px}.city-hint{bottom:10%;font-size:11px}.building{width:35%}.building span{max-width:100%;white-space:normal;line-height:1.2}}
+@media(prefers-reduced-motion:reduce){.city .banner{animation:none}.building{transition:none}}
