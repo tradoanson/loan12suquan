@@ -1,0 +1,13 @@
+/* V1.0 campaign route overlay */
+.map{isolation:isolate}
+.campaign-routes{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.campaign-routes line{vector-effect:non-scaling-stroke;stroke-width:3;stroke-linecap:round}
+.campaign-routes .route-open{stroke:#ffe1a1;stroke-dasharray:8 5;opacity:.88}
+.campaign-routes .route-locked{stroke:#172f2c;stroke-dasharray:3 7;opacity:.65}
+.node.campaign-available{box-shadow:0 0 0 3px #ffdc77aa,0 0 18px #ffd478aa}
+.node.campaign-inaccessible{opacity:.6}
+.campaign-legend{display:flex;gap:8px;flex-wrap:wrap;padding:9px 2px;font-size:12px;color:#ffe6b3}
+.campaign-legend span{background:#1c342d;border:1px solid #8c764a;border-radius:7px;padding:6px}
+.campaign-target{display:block;text-decoration:none;border:1px solid #94784d;border-radius:8px;padding:10px;margin:6px 0;background:#294238;color:#ffe6ad;min-height:44px}
+.campaign-target:hover,.campaign-target:focus-visible{background:#375b49;outline:2px solid #eecb80}
+@media(max-width:480px){.campaign-legend{font-size:11px;gap:4px}.campaign-legend span{padding:5px}.campaign-routes line{stroke-width:2}}
