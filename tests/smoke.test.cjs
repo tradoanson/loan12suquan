@@ -40,3 +40,13 @@ test('V1.1 audio is opt-in and motion effects are preference-aware',()=>{
  assert.match(fx,/prefers-reduced-motion/);
  assert.match(fx,/const reduced=\(\)=>motion\.matches/);
 });
+
+test('V1.2 chronicle exists and reads saves without writing',()=>{
+ const page=read('chronicle.html'),script=read('chronicle-v12.js');
+ assert.match(page,/chronicle-v12\.js/);
+ assert.match(page,/chronicle-v12\.css/);
+ assert.match(read('index.html'),/href="chronicle.html"/);
+ for(const key of ['loan12_campaign_v06','loan12_hoalu_v03','loan12_quest_claims_v08'])assert.ok(script.includes(key),key);
+ assert.doesNotMatch(script,/localStorage\.setItem\s*\(/);
+ assert.match(script,/textContent=value/);
+});
