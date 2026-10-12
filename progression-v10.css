@@ -1,0 +1,6 @@
+#progression-v10{background:linear-gradient(135deg,#294c3e,#1a3433);border:2px solid #d0a663;border-radius:14px;padding:16px;margin:16px 0}
+#progression-v10 h2{color:#ffe1a0;margin:0 0 8px}
+#progression-v10 p{margin:9px 0}
+#progression-v10 progress{display:block;width:100%;height:18px;accent-color:#cda85a}
+#progression-v10 .v10-notice{color:#ffe09a;font-weight:700}
+#progression-v10 .v10-resources{font-size:13px;color:#bcd7cb}
