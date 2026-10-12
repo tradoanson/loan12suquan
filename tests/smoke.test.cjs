@@ -13,3 +13,30 @@ test('campaign contains 13 unique regions and valid prerequisites',()=>{
  const html=read('map.html'),m=html.match(/const REGIONS=(\[[\s\S]*?\]);<\/script>/);assert.ok(m,'region dataset');const regions=JSON.parse(m[1]);assert.equal(regions.length,13);const ids=new Set(regions.map(r=>r.id));assert.equal(ids.size,13);assert.ok(ids.has('hoalu'));for(const r of regions)for(const dep of r.requires)assert.ok(ids.has(dep),r.id+' invalid prerequisite '+dep);
 });
 test('quest definitions include mid and end milestones',()=>{const html=read('quests.html');assert.match(html,/COUNT7/);assert.match(html,/COUNT13/);});
+
+test('V1.1 phase assets and UI hooks exist',()=>{
+ const city=read('index.html'),battle=read('battle.html'),quests=read('quests.html');
+ for(const file of ['hoalu-v11.css','hoalu-v11.js','heroes-v11.css','enemy-ai-v11.css','economy-v11.js','economy-v11.css','battle-audio-v11.js','battle-mobile-v11.css'])assert.ok(fs.existsSync(file),file);
+ for(const id of ['board','audio-toggle','doctrine','difficulty','result'])assert.ok(battle.includes('id="'+id+'"'),id);
+ assert.ok(city.includes('id="economy-v11"'));
+ for(const id of ['q7','q8','q9'])assert.ok(quests.includes('"'+id+'"'),id);
+});
+test('V1.1 gameplay retains battle and campaign invariants',()=>{
+ const battle=read('battle.js'),quests=read('quests.js');
+ assert.match(battle,/const N=7/);
+ assert.match(battle,/loan12_formation_v05/);
+ assert.match(battle,/loan12_doctrine_v11/);
+ assert.match(battle,/loan12_battle_difficulty_v11/);
+ assert.match(battle,/targetId\?'normal':difficulty/);
+ assert.match(quests,/eligible\(requirements,ids\(\),current\)/);
+ assert.match(quests,/questRewardIds/);
+});
+test('V1.1 audio is opt-in and motion effects are preference-aware',()=>{
+ const audio=read('battle-audio-v11.js'),fx=read('battle-fx-v10.js');
+ assert.match(audio,/enabled=false/);
+ assert.match(audio,/loan12_audio_v11/);
+ assert.match(audio,/AudioContext/);
+ assert.match(audio,/ctx\.resume\(\)/);
+ assert.match(fx,/prefers-reduced-motion/);
+ assert.match(fx,/const reduced=\(\)=>motion\.matches/);
+});
