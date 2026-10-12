@@ -1,0 +1,110 @@
+{
+  "bohai": {
+    "leader": "Trần Lãm",
+    "chapter": "Liên minh Bố Hải Khẩu",
+    "intro": "Trần Lãm là một thế lực có thể kết giao. Bạn sẽ chọn lời thuyết phục hay thử sức quân sự?",
+    "hpFactor": 0.85,
+    "attackFactor": 0.9,
+    "style": "guard",
+    "objective": "Thương lượng hoặc giao chiến"
+  },
+  "dodong": {
+    "leader": "Đỗ Cảnh Thạc",
+    "chapter": "Đường vào Đỗ Động Giang",
+    "intro": "Đỗ Cảnh Thạc giữ căn cứ hiểm yếu. Nghĩa quân cần chuẩn bị trước khi tiến đánh.",
+    "hpFactor": 1.1,
+    "attackFactor": 1.1,
+    "style": "heavy",
+    "objective": "Đánh chiếm căn cứ"
+  },
+  "binhkieu": {
+    "leader": "Ngô Xương Xí",
+    "chapter": "Dư âm nhà Ngô",
+    "intro": "Một hậu duệ nhà Ngô trấn giữ Bình Kiều. Quyết định quân sự có thể làm thay đổi cục diện.",
+    "hpFactor": 1.18,
+    "attackFactor": 1.12,
+    "style": "guard",
+    "objective": "Trận quyết chiến"
+  },
+  "dangchau": {
+    "leader": "Phạm Bạch Hổ",
+    "chapter": "Thương nghị Đằng Châu",
+    "intro": "Phạm Bạch Hổ có thể trở thành đồng minh nếu Hoa Lư chứng tỏ thiện chí.",
+    "hpFactor": 0.94,
+    "attackFactor": 1.0,
+    "style": "guard",
+    "objective": "Đàm phán hoặc tiến đánh"
+  },
+  "tayphu": {
+    "leader": "Nguyễn Siêu",
+    "chapter": "Tranh hùng Tây Phù Liệt",
+    "intro": "Nguyễn Siêu kiểm soát Tây Phù Liệt. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.12,
+    "attackFactor": 1.14,
+    "style": "attack",
+    "objective": "Thu phục lãnh địa"
+  },
+  "tegiang": {
+    "leader": "Lã Đường",
+    "chapter": "Tranh hùng Tế Giang",
+    "intro": "Lã Đường kiểm soát Tế Giang. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.18,
+    "attackFactor": 0.93,
+    "style": "guard",
+    "objective": "Thu phục lãnh địa"
+  },
+  "sieu": {
+    "leader": "Lý Khuê",
+    "chapter": "Tranh hùng Siêu Loại",
+    "intro": "Lý Khuê kiểm soát Siêu Loại. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 0.94,
+    "attackFactor": 1.0,
+    "style": "heavy",
+    "objective": "Thu phục lãnh địa"
+  },
+  "tiendu": {
+    "leader": "Nguyễn Thủ Tiệp",
+    "chapter": "Tranh hùng Tiên Du",
+    "intro": "Nguyễn Thủ Tiệp kiểm soát Tiên Du. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.0,
+    "attackFactor": 1.07,
+    "style": "attack",
+    "objective": "Thu phục lãnh địa"
+  },
+  "duonglam": {
+    "leader": "Ngô Nhật Khánh",
+    "chapter": "Tranh hùng Đường Lâm",
+    "intro": "Ngô Nhật Khánh kiểm soát Đường Lâm. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.12,
+    "attackFactor": 0.93,
+    "style": "heavy",
+    "objective": "Thu phục lãnh địa"
+  },
+  "tamdai": {
+    "leader": "Nguyễn Khoan",
+    "chapter": "Tranh hùng Tam Đái",
+    "intro": "Nguyễn Khoan kiểm soát Tam Đái. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.18,
+    "attackFactor": 1.0,
+    "style": "attack",
+    "objective": "Thu phục lãnh địa"
+  },
+  "hoinho": {
+    "leader": "Kiều Thuận",
+    "chapter": "Tranh hùng Hồi Hồ",
+    "intro": "Kiều Thuận kiểm soát Hồi Hồ. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 0.94,
+    "attackFactor": 1.07,
+    "style": "guard",
+    "objective": "Thu phục lãnh địa"
+  },
+  "phongchau": {
+    "leader": "Kiều Công Hãn",
+    "chapter": "Tranh hùng Phong Châu",
+    "intro": "Kiều Công Hãn kiểm soát Phong Châu. Người chơi có thể tiến quân khi tuyến đường đã mở.",
+    "hpFactor": 1.0,
+    "attackFactor": 1.14,
+    "style": "heavy",
+    "objective": "Thu phục lãnh địa"
+  }
+}

@@ -1,0 +1,144 @@
+[
+  {
+    "id": "hoalu",
+    "name": "Hoa Lư",
+    "leader": "Đinh Bộ Lĩnh",
+    "x": 48,
+    "y": 73,
+    "type": "capital",
+    "requires": []
+  },
+  {
+    "id": "bohai",
+    "name": "Bố Hải Khẩu",
+    "leader": "Trần Lãm",
+    "x": 62,
+    "y": 82,
+    "type": "ally",
+    "requires": [
+      "hoalu"
+    ]
+  },
+  {
+    "id": "dodong",
+    "name": "Đỗ Động Giang",
+    "leader": "Đỗ Cảnh Thạc",
+    "x": 37,
+    "y": 62,
+    "type": "hostile",
+    "requires": [
+      "hoalu"
+    ]
+  },
+  {
+    "id": "tayphu",
+    "name": "Tây Phù Liệt",
+    "leader": "Nguyễn Siêu",
+    "x": 57,
+    "y": 60,
+    "type": "hostile",
+    "requires": [
+      "hoalu"
+    ]
+  },
+  {
+    "id": "tegiang",
+    "name": "Tế Giang",
+    "leader": "Lã Đường",
+    "x": 68,
+    "y": 61,
+    "type": "hostile",
+    "requires": [
+      "tayphu",
+      "bohai"
+    ]
+  },
+  {
+    "id": "sieu",
+    "name": "Siêu Loại",
+    "leader": "Lý Khuê",
+    "x": 76,
+    "y": 48,
+    "type": "hostile",
+    "requires": [
+      "tegiang"
+    ]
+  },
+  {
+    "id": "tiendu",
+    "name": "Tiên Du",
+    "leader": "Nguyễn Thủ Tiệp",
+    "x": 63,
+    "y": 42,
+    "type": "hostile",
+    "requires": [
+      "tayphu"
+    ]
+  },
+  {
+    "id": "dangchau",
+    "name": "Đằng Châu",
+    "leader": "Phạm Bạch Hổ",
+    "x": 78,
+    "y": 75,
+    "type": "ally",
+    "requires": [
+      "bohai"
+    ]
+  },
+  {
+    "id": "duonglam",
+    "name": "Đường Lâm",
+    "leader": "Ngô Nhật Khánh",
+    "x": 35,
+    "y": 42,
+    "type": "hostile",
+    "requires": [
+      "dodong"
+    ]
+  },
+  {
+    "id": "tamdai",
+    "name": "Tam Đái",
+    "leader": "Nguyễn Khoan",
+    "x": 23,
+    "y": 37,
+    "type": "hostile",
+    "requires": [
+      "duonglam"
+    ]
+  },
+  {
+    "id": "hoinho",
+    "name": "Hồi Hồ",
+    "leader": "Kiều Thuận",
+    "x": 18,
+    "y": 21,
+    "type": "hostile",
+    "requires": [
+      "tamdai"
+    ]
+  },
+  {
+    "id": "phongchau",
+    "name": "Phong Châu",
+    "leader": "Kiều Công Hãn",
+    "x": 39,
+    "y": 21,
+    "type": "hostile",
+    "requires": [
+      "duonglam"
+    ]
+  },
+  {
+    "id": "binhkieu",
+    "name": "Bình Kiều",
+    "leader": "Ngô Xương Xí",
+    "x": 21,
+    "y": 78,
+    "type": "hostile",
+    "requires": [
+      "dodong"
+    ]
+  }
+]
