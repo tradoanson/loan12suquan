@@ -72,3 +72,14 @@ test('V1.2 phase 3 skill tiers stay capped and only modify hero skills',()=>{
  assert.match(battle,/doctrineConfig\(\)\.heal\*bonus/);
  assert.match(read('battle.html'),/Cấp 3 mở kỹ năng tinh luyện/);
 });
+
+test('V1.2 achievements keep one-time rewards in the city receipt',()=>{
+ const page=read('chronicle.html'),script=read('achievements-v12.js');
+ assert.match(page,/achievements-v12\.js/);
+ assert.match(page,/id="achievements-v12"/);
+ assert.match(script,/achievementRewardIds/);
+ assert.match(script,/receipts\(city\)\.includes\(id\)/);
+ assert.match(script,/a\.done\(city,owned,heroes\)/);
+ assert.match(script,/localStorage\.setItem\(CITY,JSON\.stringify\(updated\)\)/);
+ assert.match(script,/a8.*Tam kiệt Hoa Lư/);
+});
