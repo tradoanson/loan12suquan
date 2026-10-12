@@ -7,13 +7,13 @@ try{enabled=localStorage.getItem(KEY)==='on'}catch(e){}
 function label(){button.textContent=enabled?'🔊 Âm thanh: Bật':'🔇 Âm thanh: Tắt';button.setAttribute('aria-pressed',String(enabled))}
 function play(freq,duration=.09,type='sine',volume=.045){if(!enabled||document.hidden)return;try{
 const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
-if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+if(!ctx)ctx=new AC();if(ctx.state==='suspended'){ctx.resume().catch(()=>{});return}
 const osc=ctx.createOscillator(),gain=ctx.createGain(),now=ctx.currentTime;
 osc.type=type;osc.frequency.setValueAtTime(freq,now);gain.gain.setValueAtTime(.0001,now);
 gain.gain.exponentialRampToValueAtTime(volume,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
 osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.015)
 }catch(e){}}
-button.onclick=()=>{enabled=!enabled;try{localStorage.setItem(KEY,enabled?'on':'off')}catch(e){}label();if(enabled)play(660,.1)};
+button.onclick=()=>{enabled=!enabled;try{localStorage.setItem(KEY,enabled?'on':'off')}catch(e){}label();if(enabled){try{if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)ctx=new AC()}if(ctx?.state==='suspended')ctx.resume().then(()=>play(660,.1)).catch(()=>{});else play(660,.1)}catch(e){}}};
 label();
 let queued=false;
 function check(){queued=false;
