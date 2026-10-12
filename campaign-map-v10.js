@@ -28,8 +28,8 @@ const list=document.getElementById('campaign-next-list');if(!list)return;list.re
 if(!available.length){const p=document.createElement('p');p.textContent=owned.size===regions.length?'🏆 Thiên hạ đã thống nhất!':'Chưa có tuyến tiến quân mới.';list.append(p);return}
 available.forEach(r=>{const a=document.createElement('a');a.className='campaign-target';a.href='map.html?focus='+encodeURIComponent(r.id);a.textContent=(r.type==='ally'?'🤝 ':'⚔️ ')+r.name+' · '+r.leader;list.append(a)});
 }
-const observer=new MutationObserver(()=>{if(!scheduled){scheduled=true;requestAnimationFrame(()=>{scheduled=false;refresh()})}});let scheduled=false;
-observer.observe(map,{childList:true,subtree:false}); // map.js replaces node children after actions
+map.addEventListener('click',()=>setTimeout(refresh,0));
+for(const id of ['diplomacy','resetMap']){const button=document.getElementById(id);if(button)button.addEventListener('click',()=>setTimeout(refresh,0))}
 window.addEventListener('storage',refresh);
 refresh();
 })();
