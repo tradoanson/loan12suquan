@@ -6,7 +6,7 @@ const root=document.getElementById('progression-v10');if(!root)return;
 function render(){
  const campaign=read(CAM,{}),city=read(CITY,{}),claimed=read(CLAIM,[]);
  const owned=new Set(Array.isArray(campaign.owned)?campaign.owned:['hoalu']);
- const claims=new Set(Array.isArray(claimed)?claimed:[]);
+ const claims=new Set([...(Array.isArray(claimed)?claimed:[]),...(Array.isArray(city.questRewardIds)?city.questRewardIds:[])]);
  const quests=typeof QUESTS==='undefined'?[]:QUESTS;
  const ready=quests.filter(q=>!claims.has(q[0])&&q[3].every(id=>id==='COUNT7'?owned.size>=7:id==='COUNT13'?owned.size>=13:owned.has(id)));
  const pending=quests.filter(q=>!claims.has(q[0])).length;
