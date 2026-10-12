@@ -1,0 +1,4 @@
+#city-bonus{margin:9px 0;padding:9px;border-left:3px solid #e5b968;background:#142d35;border-radius:5px}
+#harvest-timer{margin-top:7px;padding:6px 2px;font-weight:600}
+#collect:disabled{opacity:.6;cursor:not-allowed}
+@media(max-width:560px){#city-bonus,#harvest-timer{font-size:13px}}
