@@ -1,4 +1,4 @@
-name: V1.0 Static QA
+name: Game Regression QA
 on:
   push:
     branches: [main, 'feature/**']
@@ -12,4 +12,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run game smoke tests
-        run: node --test tests/smoke.test.cjs
+        run: node --test tests/*.test.cjs
