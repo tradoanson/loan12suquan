@@ -1,4 +1,37 @@
-(()=>{'use strict';const CAM='loan12_campaign_v06',CITY='loan12_hoalu_v03',CLAIM='loan12_quest_claims_v08';const $=x=>document.getElementById(x);
-function read(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
-function render(){const c=read(CAM,{owned:['hoalu']}),owned=Array.isArray(c.owned)?c.owned:['hoalu'],claimed=read(CLAIM,[]);$('quests').replaceChildren();
-QUESTS.forEach(([id,name,desc,requirements,reward])=>{const done=requirements.every(x=>x==='COUNT7'?owned.length>=7:x==='COUNT13'?owned.length>=13:owned.includes(x));const card=document.createElement('article'),h=document.createElement('h2'),p=document.createElement('p'),note=document.createElement('p'),b=document.createElement('button');h.textContent=name;p.textContent=desc;note.textContent='Thưởng: '+Object.entries(reward).map(([k,v])=>v+' '+({gold:'vàng',wood:'gỗ',stone:'đá'}[k])).join(' · ');b.textContent=claimed.includes(id)?'✓ Đã nhận':done?'🎁 Nhận thưởng':'🔒 Chưa hoàn thành';b.disabled=!done||claimed.includes(id);b.onclick=()=>{const now=read(CLAIM,[]);if(now.includes(id))return;const current=read(CAM,{owned:['hoalu']}),currentOwned=current.owned||[];if(!requirements.every(x=>x==='COUNT7'?currentOwned.length>=7:x==='COUNT13'?currentOwned.length>=13:currentOwned.includes(x)))return;const city=read(CITY,null);if(!city){$('notice').textContent='Hãy vào Hoa Lư để khởi tạo thành trì trước khi nhận thưởng.';return}Object.entries(reward).forEach(([k,v])=>city[k]=(Number(city[k])||0)+v);try{localStorage.setItem(CITY,JSON.stringify(city));now.push(id);localStorage.setItem(CLAIM,JSON.stringify(now));$('notice').textContent='Đã nhận thưởng '+name;render()}catch(e){$('notice').textContent='Không lưu được phần thưởng.'}};card.append(h,p,note,b);$('quests').append(card)})}render()})();
+(()=>{'use strict';
+const CAM='loan12_campaign_v06',CITY='loan12_hoalu_v03',CLAIM='loan12_quest_claims_v08';
+const $=id=>document.getElementById(id);
+function read(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
+function ids(){const c=read(CAM,{owned:['hoalu']});return new Set(Array.isArray(c.owned)?c.owned:['hoalu'])}
+function eligible(req,owned){return req.every(x=>x==='COUNT7'?owned.size>=7:x==='COUNT13'?owned.size>=13:owned.has(x))}
+function ledger(city){return Array.isArray(city?.questRewardIds)?city.questRewardIds:[]}
+function render(){
+ const owned=ids(),city=read(CITY,null),old=read(CLAIM,[]),claimed=new Set([...(Array.isArray(old)?old:[]),...ledger(city)]);
+ $('quests').replaceChildren();
+ QUESTS.forEach(([id,name,desc,requirements,reward])=>{
+ const done=eligible(requirements,owned);
+ const card=document.createElement('article'),h=document.createElement('h2'),p=document.createElement('p'),note=document.createElement('p'),b=document.createElement('button');
+ h.textContent=name;p.textContent=desc;note.textContent='Thưởng: '+Object.entries(reward).map(([k,v])=>v+' '+({gold:'vàng',wood:'gỗ',stone:'đá'}[k])).join(' · ');
+ b.textContent=claimed.has(id)?'✓ Đã nhận':done?'🎁 Nhận thưởng':'🔒 Chưa hoàn thành';
+ b.disabled=!done||claimed.has(id);
+ b.onclick=()=>{
+  const current=read(CITY,null),legacy=read(CLAIM,[]);
+  if(!current||typeof current!=='object'||!current.levels){$('notice').textContent='Hãy vào Hoa Lư để khởi tạo thành trì trước khi nhận thưởng.';return}
+  const previously=new Set([...(Array.isArray(legacy)?legacy:[]),...ledger(current)]);
+  if(previously.has(id)||!eligible(requirements,ids())){render();return}
+  // Store reward and claim receipt together in the same city record.
+  // This prevents a second reward after a partial write of the legacy claim key.
+  const updated={...current,questRewardIds:[...ledger(current),id]};
+  for(const [k,v] of Object.entries(reward))updated[k]=(Number(updated[k])||0)+v;
+  try{
+   localStorage.setItem(CITY,JSON.stringify(updated));
+   // The old claim list is a compatibility mirror only, never the reward authority.
+   try{localStorage.setItem(CLAIM,JSON.stringify([...previously,id]))}catch(e){}
+   $('notice').textContent='Đã nhận thưởng '+name;render();
+  }catch(e){$('notice').textContent='Không lưu được phần thưởng. Vui lòng thử lại.'}
+ };
+ card.append(h,p,note,b);$('quests').append(card);
+ });
+}
+window.addEventListener('storage',render);render();
+})();
