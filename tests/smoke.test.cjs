@@ -94,3 +94,16 @@ test('V1.2 phase 5 strategic events require eligibility and single receipt',()=>
  assert.match(js,/localStorage\.setItem\(CITY,JSON\.stringify\(next\)\)/);
  for(const id of ['council','border','unification'])assert.ok(js.includes("id:'"+id+"'"));
 });
+
+test('V1.2 release: chronicle shows recent campaign events in stored newest-first order',()=>{
+ const code=read('chronicle-v12.js');
+ assert.match(code,/campaign\.events\.slice\(0,30\)/);
+ assert.doesNotMatch(code,/campaign\.events\.slice\(-30\)\.reverse\(\)/);
+});
+test('V1.2 release: all Chronicle modules load and use the same city save',()=>{
+ const page=read('chronicle.html');
+ for(const file of ['chronicle-v12.js','achievements-v12.js','strategic-events-v12.js']){
+  assert.match(page,new RegExp(file.replaceAll('.','\\.')));
+  assert.ok(read(file).includes('loan12_hoalu_v03'));
+ }
+});
