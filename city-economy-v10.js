@@ -22,7 +22,7 @@ save();render();msg('Đã tuyển '+count+' nghĩa quân nhờ Doanh trại cấ
 },true);
 for(const id of ['upgrade','collect','reset'])$(id)?.addEventListener('click',()=>setTimeout(refresh,0));
 $('buildings')?.addEventListener('click',()=>setTimeout(refresh,0));
-window.addEventListener('storage',()=>{refresh()});
+window.addEventListener('storage',event=>{if(event.key==='loan12_hoalu_v03'){try{const next=JSON.parse(event.newValue);if(next&&next.levels){state=next;render()}}catch(e){}}refresh()});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
 setInterval(()=>{if(!document.hidden)refresh()},1000);
 refresh();
