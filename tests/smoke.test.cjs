@@ -50,3 +50,14 @@ test('V1.2 chronicle exists and reads saves without writing',()=>{
  assert.doesNotMatch(script,/localStorage\.setItem\s*\(/);
  assert.match(script,/textContent=value/);
 });
+
+test('V1.2 hero progression is separate and awarded only for eligible wins',()=>{
+ const battle=read('battle.js'),page=read('battle.html'),hero=read('hero-progress-v12.js');
+ assert.match(page,/hero-progress-v12\.js/);
+ assert.match(page,/id="hero-progress-v12"/);
+ assert.match(hero,/loan12_hero_progress_v12/);
+ assert.match(hero,/if\(!won\|\|!eligible\)return/);
+ assert.match(hero,/daily>=10/);
+ assert.match(battle,/if\(ended\)return;ended=true/);
+ assert.match(battle,/eligible:!targetId\|\|conquered/);
+});
