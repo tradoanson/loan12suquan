@@ -107,3 +107,16 @@ test('V1.2 release: all Chronicle modules load and use the same city save',()=>{
   assert.ok(read(file).includes('loan12_hoalu_v03'));
  }
 });
+
+test('V1.3 phase 1 classic puzzle visuals are presentation-only',()=>{
+ const page=read('battle.html'),css=read('battle-j2me-v13.css'),fx=read('battle-j2me-v13.js');
+ assert.match(page,/battle-j2me-v13\.css/);
+ assert.match(page,/battle-j2me-v13\.js/);
+ assert.match(page,/v13-tile-key/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.match(css,/v13-combo-label/);
+ assert.match(fx,/MutationObserver/);
+ assert.match(fx,/COMBO ×/);
+ assert.doesNotMatch(fx,/localStorage|damageEnemy|finish\(/);
+ assert.match(read('battle.js'),/const N=7/);
+});
